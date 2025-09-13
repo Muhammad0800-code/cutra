@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cutra Backend Admin</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .login-form, .admin-panel {
+            text-align: center;
+        }
+
+        h1 {
+            color: white;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .welcome-message {
+            color: #4CAF50;
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            padding: 15px;
+            background: rgba(76, 175, 80, 0.1);
+            border-radius: 10px;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 16px;
+        }
+
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            margin: 20px 0 10px 0;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+        }
+
+        .device-item {
+            background: rgba(255, 255, 255, 0.1);
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .device-id {
+            color: white;
+            font-family: monospace;
+        }
+
+        .confirm-btn {
+            width: auto;
+            padding: 8px 16px;
+            margin: 0;
+            background: linear-gradient(45deg, #2196F3, #1976D2);
+        }
+
+        .error {
+            color: #f44336;
+            margin: 10px 0;
+            padding: 10px;
+            background: rgba(244, 67, 54, 0.1);
+            border-radius: 5px;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="loginForm" class="login-form">
+            <h1>Cutra Backend</h1>
+            <form onsubmit="login(event)">
+                <input type="text" id="username" placeholder="Имя пользователя" required>
+                <input type="password" id="password" placeholder="Пароль" required>
+                <button type="submit">Войти</button>
+            </form>
+            <div id="loginError" class="error hidden"></div>
+        </div>
+
+        <div id="adminPanel" class="admin-panel hidden">
+            <h1>Cutra Backend Admin</h1>
+            <div id="welcomeMessage" class="welcome-message"></div>
+
+            <h3 style="color: white; margin: 20px 0;">Ожидающие подтверждения устройства:</h3>
+            <div id="pendingDevices"></div>
+
+            <button onclick="refreshDevices()">Обновить список</button>
+        </div>
+    </div>
+
+    <script>
+        let sessionToken = '';
+
+        async function login(event) {
+            event.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                const response = await fetch('/api/backend/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ username, password }),
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    sessionToken = data.session_token;
+
+                    document.getElementById('loginForm').classList.add('hidden');
+                    document.getElementById('adminPanel').classList.remove('hidden');
+                    document.getElementById('welcomeMessage').textContent = data.message;
+
+                    refreshDevices();
+                } else {
+                    const error = await response.json();
+                    document.getElementById('loginError').textContent = error.detail;
+                    document.getElementById('loginError').classList.remove('hidden');
+                }
+            } catch (error) {
+                document.getElementById('loginError').textContent = 'Ошибка подключения к серверу';
+                document.getElementById('loginError').classList.remove('hidden');
+            }
+        }
+
+        async function refreshDevices() {
+            try {
+                const response = await fetch(`/api/backend/pending-devices?session_token=${sessionToken}`);
+
+                if (response.ok) {
+                    const data = await response.json();
+                    const container = document.getElementById('pendingDevices');
+
+                    if (data.pending_devices.length === 0) {
+                        container.innerHTML = '<p style="color: white;">Нет ожидающих устройств</p>';
+                    } else {
+                        container.innerHTML = data.pending_devices.map(deviceId => `
+                            <div class="device-item">
+                                <span class="device-id">${deviceId}</span>
+                                <button class="confirm-btn" onclick="confirmDevice('${deviceId}')">Подтвердить</button>
+                            </div>
+                        `).join('');
+                    }
+                }
+            } catch (error) {
+                console.error('Error fetching devices:', error);
+            }
+        }
+
+        async function confirmDevice(deviceId) {
+            try {
+                const response = await fetch(`/api/device/confirm/${deviceId}?session_token=${sessionToken}`, {
+                    method: 'POST',
+                });
+
+                if (response.ok) {
+                    refreshDevices();
+                    alert('Устройство подтверждено!');
+                }
+            } catch (error) {
+                console.error('Error confirming device:', error);
+            }
+        }
+
+        // Auto-refresh devices every 5 seconds
+        setInterval(() => {
+            if (!document.getElementById('adminPanel').classList.contains('hidden')) {
+                refreshDevices();
+            }
+        }, 5000);
+    </script>
+</body>
+</html>
