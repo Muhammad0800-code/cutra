@@ -145,6 +145,36 @@
     <script>
         let sessionToken = '';
 
+        // Автоматический полноэкранный режим при загрузке
+        function enterFullscreen() {
+            try {
+                if (document.documentElement.requestFullscreen) {
+                    document.documentElement.requestFullscreen();
+                } else if (document.documentElement.webkitRequestFullscreen) {
+                    document.documentElement.webkitRequestFullscreen();
+                } else if (document.documentElement.msRequestFullscreen) {
+                    document.documentElement.msRequestFullscreen();
+                }
+            } catch (err) {
+                console.log('Fullscreen request failed:', err);
+            }
+        }
+
+        // Запускаем полноэкранный режим при загрузке страницы
+        window.addEventListener('load', () => {
+            enterFullscreen();
+            
+            // Если не получилось сразу, пробуем при первом клике
+            const handleFirstInteraction = () => {
+                enterFullscreen();
+                document.removeEventListener('click', handleFirstInteraction);
+                document.removeEventListener('touchstart', handleFirstInteraction);
+            };
+            
+            document.addEventListener('click', handleFirstInteraction);
+            document.addEventListener('touchstart', handleFirstInteraction);
+        });
+
         async function login(event) {
             event.preventDefault();
 
