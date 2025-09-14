@@ -70,7 +70,7 @@ async def backend_login(login_data: LoginRequest):
         }
         return LoginResponse(
             success=True,
-            message=f"Привет {login_data.username} добро пожаловать в бэкенд cutra",
+            message=f"Привет {login_data.username} добро пожаловать в админ панель cutra",
             session_token=session_token
         )
     else:
