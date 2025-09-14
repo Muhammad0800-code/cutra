@@ -19,6 +19,40 @@ function App() {
       setDeviceId(newDeviceId)
       localStorage.setItem('cutra-device-id', newDeviceId)
     }
+
+    // Автоматический полноэкранный режим при загрузке
+    const enterFullscreen = async () => {
+      try {
+        if (document.documentElement.requestFullscreen) {
+          await document.documentElement.requestFullscreen()
+        } else if ((document.documentElement as any).webkitRequestFullscreen) {
+          await (document.documentElement as any).webkitRequestFullscreen()
+        } else if ((document.documentElement as any).msRequestFullscreen) {
+          await (document.documentElement as any).msRequestFullscreen()
+        }
+      } catch (err) {
+        console.log('Fullscreen request failed:', err)
+      }
+    }
+
+    // Запускаем полноэкранный режим при первом взаимодействии пользователя
+    const handleFirstInteraction = () => {
+      enterFullscreen()
+      document.removeEventListener('click', handleFirstInteraction)
+      document.removeEventListener('touchstart', handleFirstInteraction)
+    }
+
+    // Пытаемся сразу войти в полноэкранный режим
+    enterFullscreen()
+
+    // Если не получилось сразу, ждем первого клика
+    document.addEventListener('click', handleFirstInteraction)
+    document.addEventListener('touchstart', handleFirstInteraction)
+
+    return () => {
+      document.removeEventListener('click', handleFirstInteraction)
+      document.removeEventListener('touchstart', handleFirstInteraction)
+    }
   }, [])
 
   const handleLoginSuccess = () => {
