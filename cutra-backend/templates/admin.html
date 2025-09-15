@@ -147,10 +147,20 @@
 <body>
     <div class="container">
         <div id="loginForm" class="login-form">
-            <img src="https://d-hairstyles-app-1nm8wwdp.devinapps.com/images/cutra-logo.png" 
-                 alt="Cutra Logo" 
-                 style="width: 120px; height: 120px; border-radius: 50%; margin: 0 auto 20px; display: block; box-shadow: 0 8px 32px rgba(255,255,255,0.2);">
-            <h1>Cutra Backend</h1>
+            <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.6.2/dist/dotlottie-wc.js" type="module"></script>
+            <dotlottie-wc 
+                src="https://lottie.host/124b1bd1-e055-4520-8a09-be2b15989966/6PfZqrSKdc.lottie" 
+                style="width: 150px; height: 150px; margin: 0 auto; display: block;" 
+                speed="0.5" 
+                autoplay 
+                loop>
+            </dotlottie-wc>
+            <h1 style="background: linear-gradient(90deg, #FF006E, #FB5607, #FFBE0B, #8338EC, #3A86FF); 
+                       -webkit-background-clip: text; 
+                       background-clip: text; 
+                       color: transparent;
+                       font-size: 3.5em;
+                       margin-top: 10px;">cutra</h1>
             <form onsubmit="login(event)">
                 <input type="text" id="username" placeholder="Имя пользователя" required>
                 <input type="password" id="password" placeholder="Пароль" required>
