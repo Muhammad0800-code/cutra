@@ -166,10 +166,12 @@ const LoginPage = ({ onLoginSuccess, deviceId }: LoginPageProps) => {
 
       <Card className="w-full max-w-md mx-4 glass-ultra shadow-2xl relative z-10 hover-lift hover-glow transition-all duration-500 mirror-effect">
         <CardHeader className="text-center space-y-6">
-          <div className="mx-auto w-24 h-24 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-600 rounded-full flex items-center justify-center relative animate-breathe hover-rotate">
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-600 rounded-full animate-spin opacity-20" style={{ animationDuration: '4s' }}></div>
-            <div className="absolute inset-2 bg-gradient-to-r from-pink-400 via-cyan-500 to-blue-600 rounded-full animate-spin opacity-15" style={{ animationDuration: '6s', animationDirection: 'reverse' }}></div>
-            <Sparkles className="w-12 h-12 text-white animate-sparkle relative z-10 neon-glow" />
+          <div className="mx-auto w-32 h-32 rounded-full flex items-center justify-center relative animate-breathe hover-rotate">
+            <img 
+              src="/images/cutra-logo.png" 
+              alt="Cutra Logo" 
+              className="w-full h-full object-cover rounded-full shadow-2xl"
+            />
           </div>
           
           <CardTitle 

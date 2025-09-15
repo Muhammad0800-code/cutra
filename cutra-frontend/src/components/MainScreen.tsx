@@ -123,15 +123,13 @@ const MainScreen = () => {
                 <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 border border-blue-500 rounded-full animate-spin opacity-10" style={{ animationDuration: '30s', animationDirection: 'reverse' }}></div>
               </div>
               
-              <h1 
-                className="text-9xl font-bold bg-gradient-to-r from-blue-400 via-purple-500 via-pink-500 to-cyan-400 bg-clip-text text-transparent mb-6 relative z-10 animate-text-glow hover:scale-105 transition-transform duration-300 cursor-pointer"
-                style={{ 
-                  fontFamily: 'Pacifico, cursive',
-                  backgroundSize: '200% 200%'
-                }}
-              >
-                cutra
-              </h1>
+              <div className="mb-6 relative z-10">
+                <img 
+                  src="/images/cutra-logo.png" 
+                  alt="Cutra Logo" 
+                  className="w-64 h-64 mx-auto object-cover rounded-full shadow-2xl animate-float hover:scale-105 transition-transform duration-300 cursor-pointer"
+                />
+              </div>
               
               {/* Enhanced Sparkles */}
               <div className="flex justify-center space-x-4 mb-6">

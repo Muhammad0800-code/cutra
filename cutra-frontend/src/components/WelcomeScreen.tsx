@@ -127,12 +127,14 @@ const WelcomeScreen = ({ onComplete }: WelcomeScreenProps) => {
         </div>
       )}
 
-      <div className="text-center relative z-20">
-        {/* Central Logo with Rotating Ring */}
-        <div className="mb-12 relative">
-          <div className="absolute inset-0 w-32 h-32 mx-auto">
-            <div className="absolute inset-0 border-4 border-gradient-to-r from-blue-400 via-purple-500 to-pink-500 rounded-full animate-spin opacity-50" style={{ animationDuration: '3s' }}></div>
-            <div className="absolute inset-2 border-2 border-gradient-to-r from-pink-400 via-blue-500 to-purple-500 rounded-full animate-spin opacity-30" style={{ animationDuration: '4s', animationDirection: 'reverse' }}></div>
+      <div className={`${showText ? 'opacity-100' : 'opacity-0'} transition-opacity duration-1000`}>
+        <div className="text-center space-y-8">
+          <div className="mx-auto w-40 h-40 rounded-full flex items-center justify-center relative animate-pulse">
+            <img 
+              src="/images/cutra-logo.png" 
+              alt="Cutra Logo" 
+              className="w-full h-full object-cover rounded-full shadow-2xl"
+            />
           </div>
           <Sparkles className="w-24 h-24 text-white mx-auto animate-spin relative z-10" style={{ animationDuration: '2s' }} />
         </div>
