@@ -123,12 +123,29 @@ const MainScreen = () => {
                 <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 border border-blue-500 rounded-full animate-spin opacity-10" style={{ animationDuration: '30s', animationDirection: 'reverse' }}></div>
               </div>
               
-              <div className="mb-6 relative z-10">
-                <img 
-                  src="/images/cutra-logo.png" 
-                  alt="Cutra Logo" 
-                  className="w-64 h-64 mx-auto object-cover rounded-full shadow-2xl animate-float hover:scale-105 transition-transform duration-300 cursor-pointer"
+              <div className="mb-6 relative z-10 flex flex-col items-center">
+                <dotlottie-wc 
+                  src="https://lottie.host/124b1bd1-e055-4520-8a09-be2b15989966/6PfZqrSKdc.lottie" 
+                  style={{ width: '250px', height: '250px' }}
+                  speed="0.5" 
+                  autoplay 
+                  loop
                 />
+                <h1 
+                  className="text-8xl font-bold mt-4 hover:scale-110 transition-transform duration-300"
+                  style={{ 
+                    fontFamily: 'Pacifico, cursive',
+                    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #ffc0cb 75%, #667eea 100%)',
+                    backgroundSize: '400% 400%',
+                    WebkitBackgroundClip: 'text',
+                    backgroundClip: 'text',
+                    color: 'transparent',
+                    animation: 'gradient-shift 5s ease infinite',
+                    textShadow: '0 0 80px rgba(102, 126, 234, 0.8)'
+                  }}
+                >
+                  cutra
+                </h1>
               </div>
               
               {/* Enhanced Sparkles */}

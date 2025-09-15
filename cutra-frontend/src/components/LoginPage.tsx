@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardDescription, CardHeader } from '@/components/ui/card'
 import { Lock, User, Sparkles, Crown, Zap, Heart, Star, Scissors, Palette, Wand2, Gem } from 'lucide-react'
 
 interface LoginPageProps {
@@ -166,23 +166,30 @@ const LoginPage = ({ onLoginSuccess, deviceId }: LoginPageProps) => {
 
       <Card className="w-full max-w-md mx-4 glass-ultra shadow-2xl relative z-10 hover-lift hover-glow transition-all duration-500 mirror-effect">
         <CardHeader className="text-center space-y-6">
-          <div className="mx-auto w-32 h-32 rounded-full flex items-center justify-center relative animate-breathe hover-rotate">
-            <img 
-              src="/images/cutra-logo.png" 
-              alt="Cutra Logo" 
-              className="w-full h-full object-cover rounded-full shadow-2xl"
+          <div className="mx-auto flex flex-col items-center justify-center">
+            <dotlottie-wc 
+              src="https://lottie.host/124b1bd1-e055-4520-8a09-be2b15989966/6PfZqrSKdc.lottie" 
+              style={{ width: '180px', height: '180px' }}
+              speed="0.5" 
+              autoplay 
+              loop
             />
+            <h1 
+              className="text-6xl font-bold mt-4 animate-pulse"
+              style={{ 
+                fontFamily: 'Pacifico, cursive',
+                background: 'linear-gradient(45deg, #FF006E, #FB5607, #FFBE0B, #8338EC, #3A86FF)',
+                backgroundSize: '200% 200%',
+                WebkitBackgroundClip: 'text',
+                backgroundClip: 'text',
+                color: 'transparent',
+                animation: 'gradient-shift 3s ease infinite',
+                textShadow: '0 0 40px rgba(255, 0, 110, 0.5)'
+              }}
+            >
+              cutra
+            </h1>
           </div>
-          
-          <CardTitle 
-            className="text-5xl font-bold gradient-text-rainbow neon-glow animate-text-glow"
-            style={{ 
-              fontFamily: 'Pacifico, cursive',
-              textShadow: '0 0 30px rgba(147, 51, 234, 0.8)'
-            }}
-          >
-            Cutra
-          </CardTitle>
           
           <CardDescription className="text-white/90 text-xl font-medium animate-fade-in">
             Добро пожаловать в будущее стиля

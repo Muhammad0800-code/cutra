@@ -54,6 +54,12 @@ body {
   100% { background-position: 0% 50%; }
 }
 
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 @keyframes textGlow {
   0%, 100% { 
     text-shadow: 0 0 20px rgba(147, 51, 234, 0.8);

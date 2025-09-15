@@ -129,14 +129,29 @@ const WelcomeScreen = ({ onComplete }: WelcomeScreenProps) => {
 
       <div className={`${showText ? 'opacity-100' : 'opacity-0'} transition-opacity duration-1000`}>
         <div className="text-center space-y-8">
-          <div className="mx-auto w-40 h-40 rounded-full flex items-center justify-center relative animate-pulse">
-            <img 
-              src="/images/cutra-logo.png" 
-              alt="Cutra Logo" 
-              className="w-full h-full object-cover rounded-full shadow-2xl"
+          <div className="mx-auto flex flex-col items-center justify-center">
+            <dotlottie-wc 
+              src="https://lottie.host/124b1bd1-e055-4520-8a09-be2b15989966/6PfZqrSKdc.lottie" 
+              style={{ width: '200px', height: '200px' }}
+              speed="0.5" 
+              autoplay 
+              loop
             />
+            <h1 
+              className="text-7xl font-bold mt-4"
+              style={{ 
+                fontFamily: 'Pacifico, cursive',
+                background: 'linear-gradient(90deg, #FF006E, #FB5607, #FFBE0B, #8338EC, #3A86FF, #FF006E)',
+                backgroundSize: '300% 300%',
+                WebkitBackgroundClip: 'text',
+                backgroundClip: 'text',
+                color: 'transparent',
+                animation: 'gradient-shift 4s ease infinite'
+              }}
+            >
+              cutra
+            </h1>
           </div>
-          <Sparkles className="w-24 h-24 text-white mx-auto animate-spin relative z-10" style={{ animationDuration: '2s' }} />
         </div>
         
         {/* Dynamic Text Animation */}
